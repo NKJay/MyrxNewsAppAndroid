@@ -1,31 +1,30 @@
 package com.example.geetion.rxnewsappandroid;
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import java.util.ArrayList;
 
 public class MainActivity extends ActionBarActivity{
     ViewPager viewPager;
-    ArrayList<View> viewList = new ArrayList<View>();
+    ArrayList<Fragment> viewList = new ArrayList<Fragment>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         viewPager = (ViewPager)findViewById(R.id.viewPager);
-        View view1 = LayoutInflater.from(this).inflate(R.layout.news_layout,null);
-        View view2 = LayoutInflater.from(this).inflate(R.layout.college_layout,null);
-        View view3 = LayoutInflater.from(this).inflate(R.layout.picture_layout,null);
+        rxNewsActivity view1 = new rxNewsActivity();
+        rxNewsActivity view2 = new rxNewsActivity();
+        rxNewsActivity view3 = new rxNewsActivity();
+
         viewList.add(view1);
         viewList.add(view2);
         viewList.add(view3);
-        viewPager.setAdapter(new MainViewPagerAdapter(viewList));
+        viewPager.setAdapter(new MainViewPagerAdapter(getFragmentManager(),viewList));
     }
 
     @Override
