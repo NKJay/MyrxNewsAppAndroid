@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".rxNews.rxNewsFragment"
+            android:name=".rxNews.RXNewsFragment"
             android:label="@string/title_activity_rx_news"></activity>
     </application>
 

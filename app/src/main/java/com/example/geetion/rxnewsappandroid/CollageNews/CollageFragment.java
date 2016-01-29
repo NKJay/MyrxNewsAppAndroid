@@ -1,13 +1,13 @@
-package com.example.geetion.rxnewsappandroid.rxNews;
+package com.example.geetion.rxnewsappandroid.CollageNews;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -21,39 +21,38 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashMap;
 
+/**
+ * Created by Geetion on 16/1/29.
+ */
+public class CollageFragment extends Fragment {
 
-public class rxNewsFragment extends Fragment {
+    private String url = "http://app.ecjtu.net/api/v1/schoolnews";
+    private RecyclerView recyclerView;
+    private ArrayList<CollageItem> newsList = new ArrayList<>();
 
-    String url = "http://app.ecjtu.net/api/v1/index";
-    private ArrayList<rxNewsItem> newsList = new ArrayList<>();
-    RecyclerView recyclerView;
+    @Nullable
     @Override
-
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState)
-    {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         requestData();
 
-        View view = inflater.inflate(R.layout.news_layout, container, false);
+        View view = inflater.inflate(R.layout.college_layout,container,false);
 
         recyclerView = (RecyclerView)view.findViewById(R.id.recyclerView);
-        recyclerView.setAdapter(new rxNewsAdapter(newsList));
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         return view;
     }
 
-    public void requestData() {
+    private void requestData() {
 
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
 
         JsonObjectRequest jsonObjectRequest;
-        
+
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -61,7 +60,7 @@ public class rxNewsFragment extends Fragment {
                         try {
 
                             newsList = creatNewsData(jsonObject);
-                            creatSlideNewsData(jsonObject);
+                            recyclerView.setAdapter(new CollageAdapter(newsList));
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -78,46 +77,23 @@ public class rxNewsFragment extends Fragment {
         requestQueue.add(jsonObjectRequest);
     }
 
-    private ArrayList<rxSlideNewsItem> creatSlideNewsData(JSONObject jsonObject) throws JSONException {
+    private ArrayList<CollageItem> creatNewsData(JSONObject jsonObject) throws JSONException {
 
-        JSONObject slide = jsonObject.getJSONObject("slide_article");
-        JSONArray slideArray = slide.getJSONArray("articles");
+        JSONArray newsArray = jsonObject.getJSONArray("articles");
 
-        ArrayList<rxSlideNewsItem> currentSlideData = new ArrayList<>();
-
-        for (int i = 0;i < slideArray.length();i++) {
-
-            rxSlideNewsItem newsItem = new rxSlideNewsItem();
-
-            newsItem.id = slideArray.getJSONObject(i).getInt("id");
-            newsItem.title = slideArray.getJSONObject(i).getString("title");
-            newsItem.thumb = slideArray.getJSONObject(i).getString("thumb");
-
-            currentSlideData.add(newsItem);
-        }
-
-        return currentSlideData;
-    }
-
-    private ArrayList<rxNewsItem> creatNewsData(JSONObject jsonObject) throws JSONException {
-
-        JSONObject news = jsonObject.getJSONObject("normal_article");
-        JSONArray newsArray = news.getJSONArray("articles");
-
-        ArrayList<rxNewsItem> currentData = new ArrayList<>();
+        ArrayList<CollageItem> currentData = new ArrayList<>();
 
         for (int i = 0;i < newsArray.length();i++) {
 
-            rxNewsItem newsItem = new rxNewsItem();
+            CollageItem newsItem = new CollageItem();
+
             newsItem.click = newsArray.getJSONObject(i).getInt("click");
             newsItem.id = newsArray.getJSONObject(i).getInt("id");
             newsItem.info = newsArray.getJSONObject(i).getString("info");
             newsItem.title = newsArray.getJSONObject(i).getString("title");
             newsItem.thumb = newsArray.getJSONObject(i).getString("thumb");
-
             currentData.add(newsItem);
         }
         return currentData;
     }
-
 }

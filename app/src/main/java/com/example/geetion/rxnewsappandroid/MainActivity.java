@@ -7,7 +7,9 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.geetion.rxnewsappandroid.rxNews.rxNewsFragment;
+import com.example.geetion.rxnewsappandroid.CollageNews.CollageFragment;
+import com.example.geetion.rxnewsappandroid.pictureNews.PictureFragment;
+import com.example.geetion.rxnewsappandroid.rxNews.RXNewsFragment;
 
 import java.util.ArrayList;
 
@@ -19,9 +21,9 @@ public class MainActivity extends ActionBarActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         viewPager = (ViewPager)findViewById(R.id.viewPager);
-        rxNewsFragment view1 = new rxNewsFragment();
-        rxNewsFragment view2 = new rxNewsFragment();
-        rxNewsFragment view3 = new rxNewsFragment();
+        RXNewsFragment view1 = new RXNewsFragment();
+        CollageFragment view2 = new CollageFragment();
+        PictureFragment view3 = new PictureFragment();
 
         viewList.add(view1);
         viewList.add(view2);

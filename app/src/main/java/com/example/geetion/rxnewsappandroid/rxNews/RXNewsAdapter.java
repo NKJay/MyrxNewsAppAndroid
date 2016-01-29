@@ -9,34 +9,32 @@ import android.widget.TextView;
 import com.example.geetion.rxnewsappandroid.R;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Created by Geetion on 16/1/21.
  */
-public class rxNewsAdapter extends RecyclerView.Adapter<rxNewsAdapter.MyViewHolder> {
+public class RXNewsAdapter extends RecyclerView.Adapter<RXNewsAdapter.MyViewHolder> {
 
-    private ArrayList<rxNewsItem> list = new ArrayList<>();
+    private ArrayList<RXNewsItem> list = new ArrayList<>();
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
-//        ViewHolder holder = new ViewHolder(LayoutInflater.from(
-//                rxNewsAdapter.this).inflate(R.layout.rxnewsviewholder, parent,
-//                false));
+
         View v = LayoutInflater.from(parent.getContext())
-            .inflate(R.layout.rxnewsviewholder, parent, false);
+            .inflate(R.layout.rixin_viewholder, parent, false);
+
         MyViewHolder vh = new MyViewHolder(v);
         return vh;
     }
 
-    public rxNewsAdapter( ArrayList<rxNewsItem> myList){
+    public RXNewsAdapter(ArrayList<RXNewsItem> myList){
         this.list = myList;
     }
 
     public void onBindViewHolder(MyViewHolder holder, int position)
     {
-        rxNewsItem item = list.get(position);
+        RXNewsItem item = list.get(position);
 
         holder.title.setText(item.title);
         holder.info.setText(item.info);

@@ -8,7 +8,9 @@ import java.util.ArrayList;
  * Created by Findys on 15/12/22.
  */
 public class MainViewPagerAdapter extends FragmentPagerAdapter {
+
     ArrayList<Fragment> viewArray;
+
     public MainViewPagerAdapter(FragmentManager fragmentManager,ArrayList<Fragment> myArray){
         super(fragmentManager);
         viewArray = myArray;
