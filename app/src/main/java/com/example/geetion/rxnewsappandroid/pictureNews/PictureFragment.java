@@ -27,8 +27,9 @@ import java.util.ArrayList;
  * Created by Geetion on 16/1/29.
  */
 public class PictureFragment extends Fragment{
-    private String url = "http://pic.ecjtu.net/api.php/list";
+
     private ArrayList<PictureItem> newsList = new ArrayList<>();
+    private String articleID = new String();
     private RecyclerView recyclerView;
     @Nullable
     @Override
@@ -36,6 +37,7 @@ public class PictureFragment extends Fragment{
         View view = inflater.inflate(R.layout.picture_layout, container, false);
 
         requestData();
+        requestMoreData(articleID);
 
         recyclerView = (RecyclerView)view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -44,13 +46,19 @@ public class PictureFragment extends Fragment{
     }
 
      private void requestData(){
+
+         String url = "http://pic.ecjtu.net/api.php/list";
+
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject jsonObject) {
                         try {
-                            newsList = creatNewsData(jsonObject);
+                            ArrayList<PictureItem> currentData = new ArrayList<>();
+
+                            newsList = creatNewsData(jsonObject,currentData);
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -66,23 +74,55 @@ public class PictureFragment extends Fragment{
          requestQueue.add(jsonObjectRequest);
     }
 
-    private ArrayList<PictureItem> creatNewsData(JSONObject jsonObject) throws JSONException {
+    private void requestMoreData(String id){
 
-        ArrayList<PictureItem> currentData = new ArrayList<>();
+        String url = "http://pic.ecjtu.net/api.php/list?before="+id;
 
-            JSONArray news = jsonObject.getJSONArray("list");
-            for(int i = 0;i < news.length();i++){
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject jsonObject) {
+
+                        try {
+                            int count = jsonObject.getInt("count");
+
+                            if (0 != count){
+                                creatNewsData(jsonObject,newsList);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+
+                    }
+                });
+
+        requestQueue.add(jsonObjectRequest);
+    }
+
+    private ArrayList<PictureItem> creatNewsData(JSONObject jsonObject,ArrayList<PictureItem> dataSource) throws JSONException {
+
+            JSONArray newsArray = jsonObject.getJSONArray("list");
+
+            articleID = newsArray.getJSONObject(newsArray.length()-1).getString("pubdate");
+
+            for(int i = 0;i < newsArray.length();i++){
 
                 PictureItem pictureItem = new PictureItem();
 
-                JSONObject item = news.getJSONObject(i);
+                JSONObject item = newsArray.getJSONObject(i);
 
                 pictureItem.click = item.getInt("click");
                 pictureItem.title = item.getString("title");
 
-                currentData.add(pictureItem);
+                dataSource.add(pictureItem);
             }
 
-        return currentData;
+        return dataSource;
     }
 }
