@@ -1,0 +1,2 @@
+# MyrxNewsAppAndroid
+RiXinNews of Android
