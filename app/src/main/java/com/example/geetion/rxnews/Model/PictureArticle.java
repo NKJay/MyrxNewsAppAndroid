@@ -5,13 +5,13 @@ import org.json.JSONObject;
 /**
  * Created by Geetion on 16/4/23.
  */
-public class PictureItems {
+public class PictureArticle {
     public String id;
     public String title;
     public int click;
     public String thumb;
 
-    public PictureItems(JSONObject object){
+    public PictureArticle(JSONObject object){
         try {
             id = String.valueOf(object.getInt("id"));
             title = object.getString("title");
