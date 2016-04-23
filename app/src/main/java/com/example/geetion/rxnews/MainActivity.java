@@ -1,5 +1,6 @@
 package com.example.geetion.rxnews;
 
+import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,7 +15,8 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayList<android.support.v4.app.Fragment> mfragments = new ArrayList<>();
     private ViewPager mviewPager;
-
+    private ArrayList<String> mtitleList = new ArrayList<>();
+;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,9 +25,15 @@ public class MainActivity extends AppCompatActivity {
         mviewPager = (ViewPager)findViewById(R.id.mainViewPager);
 
         initFragments();
+        initLayout();
+        mviewPager.setAdapter(new MainViewpagerAdapater(getSupportFragmentManager(),mfragments,mtitleList));
 
-        mviewPager.setAdapter(new MainViewpagerAdapater(getSupportFragmentManager(),mfragments));
+    }
 
+    private void initLayout(){
+        mtitleList.add("日新新闻");
+        mtitleList.add("学院新闻");
+        mtitleList.add("日新图说");
     }
 
     private void initFragments(){

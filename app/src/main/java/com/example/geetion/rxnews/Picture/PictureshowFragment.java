@@ -15,12 +15,6 @@ import com.example.geetion.rxnews.R;
  */
 public class PictureshowFragment extends Fragment {
 
-
-    public PictureshowFragment() {
-        // Required empty public constructor
-    }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

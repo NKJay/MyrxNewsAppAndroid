@@ -3,7 +3,10 @@ package com.example.geetion.rxnews.RXNews;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,31 +23,39 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class RXNewsFragment extends Fragment {
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private RecyclerView mrecyclerView;
 
     private final String murl = "http://app.ecjtu.net/api/v1/index";
 
-    private ArrayList<NormalRXNewsArticle> normalArticles;
-    private ArrayList<SlideRXNewsArticle> slideArticles;
+    private ArrayList<NormalRXNewsArticle> normalArticles = new ArrayList<>();
+    private ArrayList<SlideRXNewsArticle> slideArticles = new ArrayList<>();
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
-        getHttpRequestData();
 
         View thisView = inflater.inflate(R.layout.fragment_rxnews, container, false);
-
-        RecyclerView recyclerView = (RecyclerView)thisView.findViewById(R.id.rxNewsRecyclerView);
-
-        recyclerView.setAdapter(new RXNewsRecyclerViewAdapter());
+        initLayout(thisView);
+        getHttpRequestData();
 
         return thisView;
+    }
+
+    private void initLayout(View view){
+
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.rxNewsRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getHttpRequestData();
+            }
+        });
+
+        mrecyclerView = (RecyclerView)view.findViewById(R.id.rxNewsRecyclerView);
+        mrecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
     //获取网络数据
@@ -64,6 +75,10 @@ public class RXNewsFragment extends Fragment {
                     ArrayList<SlideRXNewsArticle> tmpSlideArticles = new ArrayList<>();
                     parseSlideArticleJSONObject(slide_articleJSONArray,tmpSlideArticles);
                     slideArticles = tmpSlideArticles;
+
+                    mrecyclerView.setAdapter(new RXNewsRecyclerViewAdapter(normalArticles));
+                    swipeRefreshLayout.setRefreshing(false);
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();

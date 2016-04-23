@@ -13,10 +13,12 @@ import java.util.ArrayList;
 public class MainViewpagerAdapater extends FragmentPagerAdapter {
 
     private ArrayList<android.support.v4.app.Fragment> mfragments;
+    private ArrayList<String> mtitleList = new ArrayList<>();
 
-    public MainViewpagerAdapater(FragmentManager fm,ArrayList<android.support.v4.app.Fragment> fragments) {
+    public MainViewpagerAdapater(FragmentManager fm,ArrayList<android.support.v4.app.Fragment> fragments,ArrayList<String> titleList) {
         super(fm);
         mfragments = fragments;
+        mtitleList = titleList;
     }
 
 
@@ -28,5 +30,10 @@ public class MainViewpagerAdapater extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         return mfragments.size();
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return mtitleList.get(position);
     }
 }
