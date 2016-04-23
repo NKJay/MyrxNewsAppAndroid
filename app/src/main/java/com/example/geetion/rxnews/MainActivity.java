@@ -1,12 +1,8 @@
 package com.example.geetion.rxnews;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Button;
 
 import com.example.geetion.rxnews.Collage.CollageFragment;
 import com.example.geetion.rxnews.Picture.PictureshowFragment;
@@ -29,12 +25,6 @@ public class MainActivity extends AppCompatActivity {
         initFragments();
 
         mviewPager.setAdapter(new MainViewpagerAdapater(getSupportFragmentManager(),mfragments));
-        NetWorkUtils.getHttpRequest("http://app.ecjtu.net/api/v1/schoolnews", new NetWorkUtilsInterface.OnRequestSuccess() {
-            @Override
-            public void onSuccess(String response) {
-            }
-        });
-
 
     }
 
