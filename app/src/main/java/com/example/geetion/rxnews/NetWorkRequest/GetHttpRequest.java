@@ -29,6 +29,7 @@ public class GetHttpRequest extends AsyncTask<Void,Integer,Boolean>{
     public  GetHttpRequest(String Url,NetWorkUtils.OnRequestSuccess onRequestSuccess,NetWorkUtils.OnRequestfail onRequestfail){
         murl = Url;
         monRequestSuccess = onRequestSuccess;
+        monRequestfail = onRequestfail;
     }
 
     private void httpRequest(){

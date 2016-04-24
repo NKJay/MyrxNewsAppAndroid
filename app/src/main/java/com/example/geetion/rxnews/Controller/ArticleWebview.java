@@ -1,9 +1,11 @@
-package com.example.geetion.rxnews;
+package com.example.geetion.rxnews.Controller;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.webkit.WebView;
+
+import com.example.geetion.rxnews.R;
 
 
 public class ArticleWebview extends AppCompatActivity {

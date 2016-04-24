@@ -1,4 +1,4 @@
-package com.example.geetion.rxnews;
+package com.example.geetion.rxnews.Controller;
 
 /**
  * Created by Geetion on 16/4/24.

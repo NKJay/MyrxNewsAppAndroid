@@ -1,7 +1,6 @@
-package com.example.geetion.rxnews.RXNews;
+package com.example.geetion.rxnews.Controller.RXNews;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,7 @@ import android.widget.TextView;
  */
 import com.example.geetion.rxnews.Model.NormalRXNewsArticle;
 import com.example.geetion.rxnews.R;
-import com.example.geetion.rxnews.RecyclerViewOnClickInterface;
+import com.example.geetion.rxnews.Controller.RecyclerViewOnClickInterface;
 
 import java.util.ArrayList;
 

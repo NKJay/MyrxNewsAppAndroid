@@ -1,12 +1,13 @@
-package com.example.geetion.rxnews;
+package com.example.geetion.rxnews.Controller;
 
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.example.geetion.rxnews.Collage.CollageFragment;
-import com.example.geetion.rxnews.Picture.PictureFragment;
-import com.example.geetion.rxnews.RXNews.RXNewsFragment;
+import com.example.geetion.rxnews.Controller.Collage.CollageFragment;
+import com.example.geetion.rxnews.Controller.Picture.PictureFragment;
+import com.example.geetion.rxnews.R;
+import com.example.geetion.rxnews.Controller.RXNews.RXNewsFragment;
 
 import java.util.ArrayList;
 

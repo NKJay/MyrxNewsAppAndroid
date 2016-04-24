@@ -1,4 +1,4 @@
-package com.example.geetion.rxnews.Collage;
+package com.example.geetion.rxnews.Controller.Picture;
 
 
 import android.os.Bundle;
@@ -10,12 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.geetion.rxnews.Model.CollageArticle;
-import com.example.geetion.rxnews.Model.NormalRXNewsArticle;
-import com.example.geetion.rxnews.Model.SlideRXNewsArticle;
+import com.example.geetion.rxnews.Model.PictureArticle;
 import com.example.geetion.rxnews.NetWorkRequest.NetWorkUtils;
 import com.example.geetion.rxnews.R;
-import com.example.geetion.rxnews.RXNews.RXNewsRecyclerViewAdapter;
+import com.example.geetion.rxnews.Controller.RecyclerViewOnClickInterface;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,38 +25,35 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CollageFragment extends Fragment {
+public class PictureFragment extends Fragment implements RecyclerViewOnClickInterface{
 
-    private SwipeRefreshLayout mswipeRefreshLayout;
     private RecyclerView mrecyclerView;
+    private SwipeRefreshLayout mswipeRefreshLayout;
 
-    private final String murl = "http://app.ecjtu.net/api/v1/schoolnews";
-
-    private ArrayList<CollageArticle> marticles = new ArrayList<>();
+    private ArrayList<PictureArticle> marticles = new ArrayList<>();
+    private String murl = "http://pic.ecjtu.net/api.php/list";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View thisView = inflater.inflate(R.layout.fragment_collage, container, false);
+        View thisView = inflater.inflate(R.layout.fragment_picture, container, false);
         initLayout(thisView);
         getHttpRequestData();
         return thisView;
     }
 
-
     private void initLayout(View view){
+        mrecyclerView = (RecyclerView) view.findViewById(R.id.pictureRecyclerView);
+        mrecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        mswipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.collageRefreshLayout);
+        mswipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.pictureRefreshLayout);
         mswipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 getHttpRequestData();
             }
         });
-
-        mrecyclerView = (RecyclerView)view.findViewById(R.id.collageRecyclerView);
-        mrecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
     //获取网络数据
@@ -69,12 +64,12 @@ public class CollageFragment extends Fragment {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     //处理一般文章数据
-                    JSONArray articlesJSONArray = jsonObject.getJSONArray("articles");
-                    ArrayList<CollageArticle> tmpNormalArticles = new ArrayList<>();
-                    parseNorlmalArticleJSONObject(articlesJSONArray,tmpNormalArticles);
+                    JSONArray articlesJSONArray = jsonObject.getJSONArray("list");
+                    ArrayList<PictureArticle> tmpNormalArticles = new ArrayList<>();
+                    parseNorlmalArticleJSONArray(articlesJSONArray,tmpNormalArticles);
                     marticles = tmpNormalArticles;
 
-                    mrecyclerView.setAdapter(new CollageRecyclerViewAdapter(marticles));
+                    mrecyclerView.setAdapter(new PicturesRecyclerViewAdapter(marticles,PictureFragment.this));
                     mswipeRefreshLayout.setRefreshing(false);
 
 
@@ -90,11 +85,11 @@ public class CollageFragment extends Fragment {
         });
     }
 
-    private void parseNorlmalArticleJSONObject(JSONArray jsonArray,ArrayList<CollageArticle> articles) {
+    private void parseNorlmalArticleJSONArray(JSONArray jsonArray,ArrayList<PictureArticle> articles) {
         try {
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject object = jsonArray.getJSONObject(i);
-                CollageArticle article = new CollageArticle(object);
+                PictureArticle article = new PictureArticle(object);
                 articles.add(article);
             }
         } catch (JSONException e) {
@@ -102,4 +97,8 @@ public class CollageFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onItemClickListener(int position) {
+
+    }
 }

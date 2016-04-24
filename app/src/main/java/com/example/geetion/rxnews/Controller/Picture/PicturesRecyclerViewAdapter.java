@@ -1,6 +1,5 @@
-package com.example.geetion.rxnews.Picture;
+package com.example.geetion.rxnews.Controller.Picture;
 
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +8,7 @@ import android.widget.TextView;
 
 import com.example.geetion.rxnews.Model.PictureArticle;
 import com.example.geetion.rxnews.R;
+import com.example.geetion.rxnews.Controller.RecyclerViewOnClickInterface;
 
 import java.util.ArrayList;
 
@@ -18,9 +18,11 @@ import java.util.ArrayList;
 public class PicturesRecyclerViewAdapter extends RecyclerView.Adapter<PicturesRecyclerViewAdapter.ViewHolder> {
 
     private ArrayList<PictureArticle> marticles = new ArrayList<>();
+    private RecyclerViewOnClickInterface mrecyclerViewOnClickInterface;
 
-    public PicturesRecyclerViewAdapter(ArrayList<PictureArticle> articles){
+    public PicturesRecyclerViewAdapter(ArrayList<PictureArticle> articles,RecyclerViewOnClickInterface recyclerViewOnClickInterface){
         marticles = articles;
+        mrecyclerViewOnClickInterface = recyclerViewOnClickInterface;
     }
 
     @Override
@@ -31,9 +33,16 @@ public class PicturesRecyclerViewAdapter extends RecyclerView.Adapter<PicturesRe
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         PictureArticle article = marticles.get(position);
         holder.title.setText(article.title);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mrecyclerViewOnClickInterface.onItemClickListener(position);
+            }
+        });
     }
 
     @Override

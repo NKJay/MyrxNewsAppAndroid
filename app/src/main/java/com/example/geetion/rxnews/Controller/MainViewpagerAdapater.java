@@ -1,4 +1,4 @@
-package com.example.geetion.rxnews;
+package com.example.geetion.rxnews.Controller;
 
 import android.app.Fragment;
 import android.support.v4.app.FragmentManager;

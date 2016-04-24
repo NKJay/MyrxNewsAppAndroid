@@ -1,4 +1,4 @@
-package com.example.geetion.rxnews.RXNews;
+package com.example.geetion.rxnews.Controller.RXNews;
 
 
 import android.content.Intent;
@@ -7,17 +7,16 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.geetion.rxnews.ArticleWebview;
+import com.example.geetion.rxnews.Controller.ArticleWebview;
 import com.example.geetion.rxnews.Model.NormalRXNewsArticle;
 import com.example.geetion.rxnews.Model.SlideRXNewsArticle;
 import com.example.geetion.rxnews.NetWorkRequest.NetWorkUtils;
 import com.example.geetion.rxnews.R;
-import com.example.geetion.rxnews.RecyclerViewOnClickInterface;
+import com.example.geetion.rxnews.Controller.RecyclerViewOnClickInterface;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,7 +30,6 @@ public class RXNewsFragment extends Fragment implements RecyclerViewOnClickInter
     private RecyclerView mrecyclerView;
 
     private final String murl = "http://app.ecjtu.net/api/v1/index";
-    private final String marticleUrl = "http://app.ecjtu.net/api/v1/article/";
 
     private ArrayList<NormalRXNewsArticle> normalArticles = new ArrayList<>();
     private ArrayList<SlideRXNewsArticle> slideArticles = new ArrayList<>();
