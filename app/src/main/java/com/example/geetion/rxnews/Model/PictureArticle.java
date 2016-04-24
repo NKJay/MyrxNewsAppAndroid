@@ -19,6 +19,9 @@ public class PictureArticle {
             title = object.getString("title");
             Log.i("zxc",title);
             thumb = object.getString("thumb");
+            if (thumb.substring(0,4) != "http"){
+                thumb = "http://" + thumb;
+            }
             click = object.getInt("click");
         }catch (Exception e){
             Log.i("123",e.toString());

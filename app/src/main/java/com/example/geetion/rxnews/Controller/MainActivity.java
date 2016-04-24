@@ -1,5 +1,6 @@
 package com.example.geetion.rxnews.Controller;
 
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,24 +17,32 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<android.support.v4.app.Fragment> mfragments = new ArrayList<>();
     private ViewPager mviewPager;
     private ArrayList<String> mtitleList = new ArrayList<>();
+    private TabLayout tabLayout;
 ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        mviewPager = (ViewPager)findViewById(R.id.mainViewPager);
+        getSupportActionBar().setElevation(0);
 
         initFragments();
         initLayout();
-        mviewPager.setAdapter(new MainViewpagerAdapater(getSupportFragmentManager(),mfragments,mtitleList));
-
     }
 
     private void initLayout(){
         mtitleList.add("日新新闻");
         mtitleList.add("学院新闻");
         mtitleList.add("日新图说");
+
+        mviewPager = (ViewPager)findViewById(R.id.mainViewPager);
+        mviewPager.setAdapter(new MainViewpagerAdapater(getSupportFragmentManager(),mfragments,mtitleList));
+
+        tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        tabLayout.setTabMode(TabLayout.MODE_FIXED);
+        tabLayout.addTab(tabLayout.newTab().setText(mtitleList.get(0)));
+        tabLayout.addTab(tabLayout.newTab().setText(mtitleList.get(1)));
+        tabLayout.addTab(tabLayout.newTab().setText(mtitleList.get(2)));
+        tabLayout.setupWithViewPager(mviewPager);
     }
 
     private void initFragments(){

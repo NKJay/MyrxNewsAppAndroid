@@ -19,6 +19,9 @@ public class CollageArticle {
             title = object.getString("title");
             info = object.getString("info");
             thumb = object.getString("thumb");
+            if (thumb.substring(0,4) != "http"){
+                thumb = "http://" + thumb;
+            }
             click = object.getInt("click");
         }catch (Exception e){
 

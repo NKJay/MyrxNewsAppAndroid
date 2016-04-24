@@ -4,17 +4,25 @@
     android:layout_height="280dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/pictureCardView"
-    android:layout_margin="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginBottom="7dp"
+    android:layout_marginTop="7dp"
     app:cardCornerRadius="7dp"
-    app:cardElevation="5dp">
+    app:cardElevation="5dp"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="210dp"
-            android:layout_margin="5dp"/>
+            android:layout_height="230dp"
+            android:layout_margin="7dp"
+            android:scaleType="centerCrop"
+            android:id="@+id/picture_vh_image"
+            />
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">

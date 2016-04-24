@@ -8,4 +8,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="RXNewsTheme" parent="AppTheme" >
+        <item name="colorPrimary">@color/accent_material_light</item>
+        <item name="colorAccent">@color/accent_material_light</item>
+        <item name="android:statusBarColor">@color/accent_material_light</item>
+    </style>
+
 </resources>
