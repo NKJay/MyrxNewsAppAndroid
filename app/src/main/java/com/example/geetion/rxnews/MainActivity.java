@@ -1,12 +1,11 @@
 package com.example.geetion.rxnews;
 
-import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.geetion.rxnews.Collage.CollageFragment;
-import com.example.geetion.rxnews.Picture.PictureshowFragment;
+import com.example.geetion.rxnews.Picture.PictureFragment;
 import com.example.geetion.rxnews.RXNews.RXNewsFragment;
 
 import java.util.ArrayList;
@@ -39,6 +38,6 @@ public class MainActivity extends AppCompatActivity {
     private void initFragments(){
         mfragments.add(new RXNewsFragment());
         mfragments.add(new CollageFragment());
-        mfragments.add(new PictureshowFragment());
+        mfragments.add(new PictureFragment());
     }
 }

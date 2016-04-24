@@ -8,15 +8,17 @@ import android.widget.TextView;
 
 import com.example.geetion.rxnews.Model.CollageArticle;
 import com.example.geetion.rxnews.R;
+import com.example.geetion.rxnews.RecyclerViewOnClickInterface;
 
 import java.util.ArrayList;
 
 /**
  * Created by Geetion on 16/4/23.
  */
-public class CollageRecyclerViewAdapter extends RecyclerView.Adapter<CollageRecyclerViewAdapter.MyViewholder> {
+public class CollageRecyclerViewAdapter extends RecyclerView.Adapter<CollageRecyclerViewAdapter.MyViewholder>{
 
     private ArrayList<CollageArticle> marticles = new ArrayList<>();
+    private RecyclerViewOnClickInterface recyclerViewOnClickInterface;
 
     public CollageRecyclerViewAdapter(ArrayList<CollageArticle> articles){
         marticles = articles;
@@ -41,9 +43,16 @@ public class CollageRecyclerViewAdapter extends RecyclerView.Adapter<CollageRecy
     }
 
     @Override
-    public void onBindViewHolder(MyViewholder holder, int position) {
+    public void onBindViewHolder(MyViewholder holder, final int position) {
         CollageArticle article = marticles.get(position);
         holder.title.setText(article.title);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                recyclerViewOnClickInterface.onItemClickListener(position);
+            }
+        });
     }
 
     @Override

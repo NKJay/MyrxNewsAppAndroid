@@ -13,21 +13,24 @@ import android.widget.TextView;
  */
 import com.example.geetion.rxnews.Model.NormalRXNewsArticle;
 import com.example.geetion.rxnews.R;
+import com.example.geetion.rxnews.RecyclerViewOnClickInterface;
 
 import java.util.ArrayList;
 
-public class RXNewsRecyclerViewAdapter extends RecyclerView.Adapter<RXNewsRecyclerViewAdapter.MyViewHolder> {
+public class RXNewsRecyclerViewAdapter extends RecyclerView.Adapter<RXNewsRecyclerViewAdapter.ViewHolder> {
 
     private ArrayList<NormalRXNewsArticle> marticles = new ArrayList<>();
+    private RecyclerViewOnClickInterface mrecyclerViewOnClickInterface;
 
-    public RXNewsRecyclerViewAdapter(ArrayList<NormalRXNewsArticle> articles){
+    public RXNewsRecyclerViewAdapter(ArrayList<NormalRXNewsArticle> articles,RecyclerViewOnClickInterface recyclerViewOnClickInterface){
         marticles = articles;
+        mrecyclerViewOnClickInterface = recyclerViewOnClickInterface;
     }
 
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rxnews_viewholder,parent,false);
-        MyViewHolder viewHolder = new MyViewHolder(view);
+        ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
 
@@ -37,18 +40,25 @@ public class RXNewsRecyclerViewAdapter extends RecyclerView.Adapter<RXNewsRecycl
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         NormalRXNewsArticle article = marticles.get(position);
         holder.title.setText(article.title);
+        
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mrecyclerViewOnClickInterface.onItemClickListener(position);
+            }
+        });
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder{
 
         public ImageView imageView;
 
         public TextView title;
 
-        public MyViewHolder(View itemView) {
+        public ViewHolder(View itemView) {
             super(itemView);
 
             imageView = (ImageView) itemView.findViewById(R.id.rxnews_vh_imageView);

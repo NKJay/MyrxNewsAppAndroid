@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Picture.PictureshowFragment">
+    tools:context=".Picture.PictureFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <android.support.v4.widget.SwipeRefreshLayout
@@ -12,7 +12,6 @@
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#080"
             android:id="@+id/pictureRecyclerView"></android.support.v7.widget.RecyclerView>
     </android.support.v4.widget.SwipeRefreshLayout>
 

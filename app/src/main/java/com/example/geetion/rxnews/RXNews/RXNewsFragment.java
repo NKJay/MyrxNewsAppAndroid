@@ -1,6 +1,7 @@
 package com.example.geetion.rxnews.RXNews;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -11,10 +12,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.geetion.rxnews.ArticleWebview;
 import com.example.geetion.rxnews.Model.NormalRXNewsArticle;
 import com.example.geetion.rxnews.Model.SlideRXNewsArticle;
 import com.example.geetion.rxnews.NetWorkRequest.NetWorkUtils;
 import com.example.geetion.rxnews.R;
+import com.example.geetion.rxnews.RecyclerViewOnClickInterface;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,11 +26,12 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 
-public class RXNewsFragment extends Fragment {
+public class RXNewsFragment extends Fragment implements RecyclerViewOnClickInterface{
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView mrecyclerView;
 
     private final String murl = "http://app.ecjtu.net/api/v1/index";
+    private final String marticleUrl = "http://app.ecjtu.net/api/v1/article/";
 
     private ArrayList<NormalRXNewsArticle> normalArticles = new ArrayList<>();
     private ArrayList<SlideRXNewsArticle> slideArticles = new ArrayList<>();
@@ -76,7 +80,7 @@ public class RXNewsFragment extends Fragment {
                     parseSlideArticleJSONObject(slide_articleJSONArray,tmpSlideArticles);
                     slideArticles = tmpSlideArticles;
 
-                    mrecyclerView.setAdapter(new RXNewsRecyclerViewAdapter(normalArticles));
+                    mrecyclerView.setAdapter(new RXNewsRecyclerViewAdapter(normalArticles,RXNewsFragment.this));
                     swipeRefreshLayout.setRefreshing(false);
 
 
@@ -124,5 +128,14 @@ public class RXNewsFragment extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onItemClickListener(int position) {
+        NormalRXNewsArticle article = normalArticles.get(position);
+        String url = "http://app.ecjtu.net/api/v1/article/"+String.valueOf(article.id)+"/view";
+        Intent intent = new Intent(getActivity(), ArticleWebview.class);
+        intent.putExtra("url",url);
+        startActivity(intent);
     }
 }
