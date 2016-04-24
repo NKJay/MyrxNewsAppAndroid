@@ -2,6 +2,7 @@ package com.example.geetion.rxnews.Controller.Picture;
 
 import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,9 +24,12 @@ public class PicturesRecyclerViewAdapter extends RecyclerView.Adapter<PicturesRe
     private ArrayList<PictureArticle> marticles = new ArrayList<>();
     private RecyclerViewOnClickInterface mrecyclerViewOnClickInterface;
 
-    public PicturesRecyclerViewAdapter(ArrayList<PictureArticle> articles,RecyclerViewOnClickInterface recyclerViewOnClickInterface){
-        marticles = articles;
+    public PicturesRecyclerViewAdapter(RecyclerViewOnClickInterface recyclerViewOnClickInterface){
         mrecyclerViewOnClickInterface = recyclerViewOnClickInterface;
+    }
+
+    public void updateData(ArrayList<PictureArticle> articles){
+        marticles = articles;
     }
 
     @Override

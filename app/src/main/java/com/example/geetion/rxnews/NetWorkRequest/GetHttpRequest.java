@@ -48,15 +48,8 @@ public class GetHttpRequest extends AsyncTask<Void,Integer,Boolean>{
             while ((line = reader.readLine()) != null) {
                 response.append(line);
             }
-        } catch (ProtocolException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-            monRequestfail.onFail(e.toString());
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-            monRequestfail.onFail(e.toString());
-        } catch (IOException e) {
-            e.printStackTrace();
-            monRequestfail.onFail(e.toString());
         }finally {
             if (connection != null) {
                 connection.disconnect();
